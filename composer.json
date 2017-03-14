@@ -1,0 +1,18 @@
+{
+    "name": "msoroka/framework",
+    "description": "It is simple framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maksym Soroka",
+            "email": "ms.mikro.1@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Msoroka\\Framework\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
