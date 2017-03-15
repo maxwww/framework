@@ -87,7 +87,7 @@ class Router
      */
     private function getControllerMethod(array $config_route): string
     {
-        return explode("@", $config_route['action'])[0];
+        return explode("@", $config_route['action'])[1];
     }
 
     /**
