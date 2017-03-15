@@ -12,20 +12,31 @@ use Msoroka\Framework\Response\Response;
 class Controller
 {
     /**
-     * @param string $view_path
+     * Path to layout. Can be changed in Controller
+     *
+     * @var string
+     */
+    protected $layout = '';
+
+    /**
      * @param array $params
      * @param bool $with_layout
      * @return Response
      */
-    public function render(string $view_path, array $params = [], bool $with_layout = true): Response
+    public function render(string $name, array $params = [], bool $with_layout = true): Response
     {
+        $class_name = get_class($this);
+        preg_match("/[\w]+(?=Controller$)/", $class_name, $output_array);
+        $class_name = $output_array[0];
+        $class_name = strtolower($class_name);
+        $view_path = realpath("../src/Views/$class_name/$name.php");
         $content = Renderer::render($view_path, $params);
 
         if ($with_layout) {
-            $content = Renderer::render(
-                pathinfo($view_path)['dirname'] . DIRECTORY_SEPARATOR  . 'layout.html.php',
-                ['content' => $content]
-            );
+            if ($this->layout == '') {
+                $this->layout = realpath("../src/Views/layouts/main.php");
+            }
+            $content = Renderer::render($this->layout, ['content' => $content]);
         }
 
         return new Response($content);

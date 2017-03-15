@@ -61,7 +61,16 @@ class Router
                 if (!empty($route['variables'])) {
                     array_shift($matches);
                     $result->setParams($this->parseParamValues($route['variables'], $matches));
+
+                    if (!empty($_GET)) {
+                        foreach ($_GET as $key => $value) {
+                            if (!$result->getParam($key)) {
+                                $result->addParam($key, $value);
+                            }
+                        }
+                    }
                 }
+
                 return $result;
             }
         }
@@ -144,6 +153,7 @@ class Router
 
         return array_combine($variables, $buffer);
     }
+
     /**
      * Build link
      *

@@ -72,7 +72,7 @@ class Route
      */
     public function setController(string $controller)
     {
-        $this->controller= $controller;
+        $this->controller = $controller;
     }
 
     /**
@@ -105,5 +105,27 @@ class Route
     public function setParams(array $params)
     {
         $this->params = $params;
+    }
+
+    /**
+     * Add one param
+     *
+     * @param string $key
+     * @param string $value
+     */
+    public function addParam(string $key, string $value)
+    {
+        $this->params[$key] = $value;
+    }
+
+    /**
+     * Get param
+     *
+     * @param string $key
+     * @return mixed|null
+     */
+    public function getParam(string $key)
+    {
+        return isset($this->params[$key]) ? $this->params[$key] : null;
     }
 }
